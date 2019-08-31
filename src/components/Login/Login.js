@@ -1,19 +1,18 @@
 import React, { PureComponent } from 'react';
-import { render } from 'react-dom';
+import { connect } from 'react-redux';
 import { withStyles } from '@material-ui/core/styles';
 import { Formik, Field, Form } from 'formik';
 import MuiTextField from '@material-ui/core/TextField';
-import {
-  fieldToTextField,
-  TextField,
-  TextFieldProps
-} from 'formik-material-ui';
+import { fieldToTextField } from 'formik-material-ui';
 import * as Yup from "yup";
 import Grid from "@material-ui/core/Grid";
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import Button from "@material-ui/core/Button";
 import Typography from '@material-ui/core/Typography';
+
+import { getIsAuthorized, fetchAuthRequest } from '../../modules/Auth';
+import Map from '../Map';
 
 const styles = theme => ({
     Grid: {
@@ -36,7 +35,7 @@ const styles = theme => ({
 });
 
 const BasicFormSchema = Yup.object().shape({
-    email: Yup.string()
+    username: Yup.string()
       .email("Неверная электронная почта")
       .required("Необходимо заполнить поле"),
     password: Yup.string()
@@ -58,7 +57,17 @@ const UppercasingTextField = (props) => (
 
 class Login extends PureComponent {
     render() {
-        const classes = this.props.classes;
+        const { isAuthorized } = this.props;
+
+        return isAuthorized ? this.renderApp() : this.renderLogin(this.props);
+    }
+
+    renderApp() {
+        return <Map />;
+    }
+    
+    renderLogin() {
+        const { fetchAuthRequest, classes } = this.props;
 
         return (
             <div className="Login">
@@ -76,14 +85,15 @@ class Login extends PureComponent {
                             </Typography>
                             <Formik
                                 initialValues={{
-                                    email: "",
+                                    username: "",
                                     password: ""
                                 }}
 
                                 validationSchema={BasicFormSchema}
                                 
-                                onSubmit={values => {
-                                    
+                                onSubmit={({ username, password }) => {
+                                    console.log(username, password);
+                                    fetchAuthRequest({ username, password });
                                 }}
 
                                 render={({ submitForm }) => (
@@ -97,7 +107,7 @@ class Login extends PureComponent {
                                         >
                                             <Field
                                                 type="email"
-                                                name="email"
+                                                name="username"
                                                 label="Эл. почта"
                                                 component={UppercasingTextField}
                                             />
@@ -129,4 +139,13 @@ class Login extends PureComponent {
     }
 }
 
-export default withStyles(styles)(Login);
+const mapStateToProps = (state) => ({
+    isAuthorized: getIsAuthorized(state)
+});
+
+const mapDispatchToProps = { fetchAuthRequest };
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(withStyles(styles)(Login));
