@@ -16,6 +16,6 @@ export default class Map extends PureComponent {
     }
 
     render() {
-        return <div className="Map-Box" ref={this.mapContainer} />;
+        return <div className="MapBox" ref={this.mapContainer} />;
     }
 } 
