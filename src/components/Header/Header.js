@@ -19,7 +19,7 @@ export default function Header() {
 
     return (
         <div className={'Header ' + classes.root}>
-            <AppBar position="static" color="light">
+            <AppBar position="static" color="inherit">
                 <Toolbar>
                     <Typography variant="h6" className={classes.title}>
                         Loft Taxi
