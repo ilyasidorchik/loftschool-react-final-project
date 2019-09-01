@@ -92,7 +92,6 @@ class Login extends PureComponent {
                                 validationSchema={BasicFormSchema}
                                 
                                 onSubmit={({ username, password }) => {
-                                    console.log(username, password);
                                     fetchAuthRequest({ username, password });
                                 }}
 

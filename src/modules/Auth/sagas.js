@@ -13,6 +13,7 @@ function* fetchAuthFlow(action) {
 
         const result = yield call(authUser, username, password);
         if (result.success) {
+            window.localStorage.setItem('isAuthorized', result.success);
             yield put(fetchAuthSuccess(result));
         }
         else {

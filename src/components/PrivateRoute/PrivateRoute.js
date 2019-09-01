@@ -14,9 +14,9 @@ class PrivateRoute extends PureComponent {
     renderRoute = (props) => {
         const { isAuthorized, component: Component } = this.props;
 
-        console.log("Here");
-
-        return isAuthorized ? <Component {...props} /> : <Redirect to="/login" />;
+        return (isAuthorized || window.localStorage.getItem('isAuthorized'))
+            ? <Component {...props} />
+            : <Redirect to="/login" />;
     };
 }
 
