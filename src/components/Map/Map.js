@@ -1,25 +1,12 @@
-import React, { PureComponent } from 'react';
+import React, { memo } from 'react';
 
-import { mapInit } from '../../modules/Map';
+import MapBox from '../MapBox';
 import './Map.css';
 
-export default class Map extends PureComponent {
-    map = null;
-    mapContainer = React.createRef();
+const Map = memo(() => (
+    <div className="Map">
+        <MapBox />
+    </div>
+));
 
-    componentDidMount() {
-        this.map = mapInit(this.mapContainer);
-    }
-
-    componentWillUnmount() {
-        if (this.map) this.map.remove();
-    }
-
-    render() {
-        return (
-            <div className="Map">
-                <div className="Map-Box" ref={this.mapContainer} />
-            </div>
-        );
-    }
-} 
+export default Map;
