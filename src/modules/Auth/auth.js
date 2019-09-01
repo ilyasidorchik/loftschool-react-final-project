@@ -10,10 +10,10 @@ export const fetchLogoutRequest = createAction(constants.FETCH_LOGOUT_REQUEST);
 
 const isAuthorized = handleActions(
     {
-        [fetchAuthRequest]: (state, action) => false,
-        [fetchAuthSuccess]: (state, action) => true,
-        [fetchAuthFailure]: (state, action) => false,
-        [fetchLogoutRequest]: (state, action) => false
+        [fetchAuthRequest]: () => false,
+        [fetchAuthSuccess]: () => true,
+        [fetchAuthFailure]: () => false,
+        [fetchLogoutRequest]: () => false
     },
     false
 )
