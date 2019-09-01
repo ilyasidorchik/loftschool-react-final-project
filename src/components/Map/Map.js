@@ -1,9 +1,25 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 
-export default class Map extends Component {
+import { mapInit } from '../../modules/Map';
+import './Map.css';
+
+export default class Map extends PureComponent {
+    map = null;
+    mapContainer = React.createRef();
+
+    componentDidMount() {
+        this.map = mapInit(this.mapContainer);
+    }
+
+    componentWillUnmount() {
+        if (this.map) this.map.remove();
+    }
+
     render() {
         return (
-            <div>Карта для авторизованных пользователей</div>
+            <div className="Map">
+                <div className="Map-Box" ref={this.mapContainer} />
+            </div>
         );
     }
 } 
