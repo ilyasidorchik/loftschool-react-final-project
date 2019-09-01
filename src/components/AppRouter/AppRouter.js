@@ -1,13 +1,15 @@
 import React from 'react';
 import { BrowserRouter, Switch, Redirect, Route } from 'react-router-dom';
 
-import PrivateRoute from '../PrivateRoute'
+import PrivateRoute from '../PrivateRoute';
+import Header from '../Header';
 import Login from '../Login';
 import Map from '../Map';
 
-function Router() {
+function AppRouter() {
   return (
     <BrowserRouter>
+      <Header />
       <Switch>
         <Route path='/login' component={Login} />
         <PrivateRoute path='/map' component={Map} />
@@ -17,4 +19,4 @@ function Router() {
   );
 }
 
-export default Router;
+export default AppRouter;

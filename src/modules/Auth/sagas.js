@@ -1,6 +1,6 @@
-import { takeLatest, call, put }  from 'redux-saga/effects';
+import { takeLatest, call, put, fork }  from 'redux-saga/effects';
 
-import { fetchAuthRequest, fetchAuthSuccess, fetchAuthFailure } from './auth';
+import { fetchAuthRequest, fetchAuthSuccess, fetchAuthFailure, fetchLogoutRequest } from './auth';
 import { authUser } from './api';
 
 function* fetchAuthWatcher() {
@@ -25,4 +25,13 @@ function* fetchAuthFlow(action) {
     }
 }
 
-export default fetchAuthWatcher;
+function* fetchLogoutWatcher() {
+    yield takeLatest(fetchLogoutRequest, () => {
+        window.localStorage.removeItem('isAuthorized');
+    });
+}
+
+export default function*() {
+    yield fork(fetchAuthWatcher);
+    yield fork(fetchLogoutWatcher);
+};

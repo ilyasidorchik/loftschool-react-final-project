@@ -13,7 +13,7 @@ const isAuthorized = handleActions(
         [fetchAuthRequest]: (state, action) => false,
         [fetchAuthSuccess]: (state, action) => true,
         [fetchAuthFailure]: (state, action) => false,
-        [fetchLogoutRequest]: (state) => false
+        [fetchLogoutRequest]: (state, action) => false
     },
     false
 )
