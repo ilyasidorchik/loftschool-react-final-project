@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { Component } from 'react';
 
-const App = () => {
-    return (
-        <div>Карта для авторизованных пользователей</div>
-    );
-};
-
-export default App;
+export default class Map extends Component {
+    render() {
+        return (
+            <div>Карта для авторизованных пользователей</div>
+        );
+    }
+} 

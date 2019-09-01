@@ -1,4 +1,5 @@
 import React, { PureComponent } from 'react';
+import { withRouter, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { withStyles } from '@material-ui/core/styles';
 import { Formik, Field, Form } from 'formik';
@@ -12,7 +13,6 @@ import Button from "@material-ui/core/Button";
 import Typography from '@material-ui/core/Typography';
 
 import { getIsAuthorized, fetchAuthRequest } from '../../modules/Auth';
-import Map from '../Map';
 
 const styles = theme => ({
     Grid: {
@@ -63,7 +63,7 @@ class Login extends PureComponent {
     }
 
     renderApp() {
-        return <Map />;
+        return <Redirect to='/map' />;
     }
     
     renderLogin() {
@@ -148,4 +148,6 @@ const mapDispatchToProps = { fetchAuthRequest };
 export default connect(
     mapStateToProps,
     mapDispatchToProps
-)(withStyles(styles)(Login));
+)(withRouter(
+    withStyles(styles)(Login)
+));
