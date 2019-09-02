@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import { withStyles } from '@material-ui/core/styles';
 import { Formik, Field, Form } from 'formik';
 import MuiTextField from '@material-ui/core/TextField';
@@ -15,6 +17,14 @@ import {
     KeyboardDatePicker
 } from '@material-ui/pickers';
 
+import {
+    getCardName,
+    getCardNumber,
+    getExpDate,
+    getCVV,
+    fetchProfileRequest
+} from '../../modules/Profile';
+
 const styles = theme => ({
     Grid: {
         minHeight: '100vh',
@@ -29,6 +39,9 @@ const styles = theme => ({
     },
     Grid__Card: {
         marginTop: 50
+    },
+    Card__P: {
+        marginBottom: 20
     },
     Form__Input_Date: {
         marginTop: 0
@@ -71,6 +84,13 @@ class Profile extends Component {
         dateInputDisabled: false
     };
 
+    componentDidMount() {
+        const { fetchProfileRequest, classes } = this.props;
+        const savedProfile = JSON.parse(window.localStorage.getItem('profile'));
+
+        if (savedProfile) fetchProfileRequest(savedProfile);
+    }
+
     handleDateChange = (date) => {
         this.setState({
             date
@@ -90,8 +110,12 @@ class Profile extends Component {
     }
 
     render() {
-        const { classes } = this.props;
-        const { date, dateInputDisabled } = this.state;
+        const { fetchProfileRequest, classes } = this.props;
+
+        const savedProfile = JSON.parse(window.localStorage.getItem('profile'));
+        const { cardName, cardNumber, expDate, CVV } = (savedProfile) ? savedProfile : this.props;
+
+        const { date, dateInputDisabled } = this.state;       
 
         return (
             <div className="Profile">
@@ -106,15 +130,16 @@ class Profile extends Component {
                             <Typography gutterBottom variant="h4" component="h2" className={classes.Title}>
                                 Профиль
                             </Typography>
+
                             <Typography gutterBottom variant="h6" component="h6">
                                 Способ оплаты
                             </Typography>
                             <Formik
                                 initialValues={{
-                                    cardName: "",
-                                    cardNumber: "",
-                                    expDate: "",
-                                    CVV: ""
+                                    cardName: cardName,
+                                    cardNumber: cardNumber,
+                                    expDate: expDate,
+                                    CVV: CVV
                                 }}
 
                                 validationSchema={BasicFormSchema}
@@ -124,7 +149,8 @@ class Profile extends Component {
                                         dateInputDisabled: true
                                     })
 
-                                    console.log({ cardName, cardNumber, expDate: this.getFormattedDate(date), CVV });
+                                    const expDate = this.getFormattedDate(date);                                    
+                                    fetchProfileRequest({ cardName, cardNumber, expDate, CVV });
                                 }}
 
                                 render={({ submitForm }) => (
@@ -204,4 +230,16 @@ class Profile extends Component {
     }
 };
 
-export default withStyles(styles)(Profile);
+const mapStateToProps = (state) => ({
+    cardName: getCardName(state),
+    cardNumber: getCardNumber(state),
+    expDate: getExpDate(state),
+    CVV: getCVV(state)
+});
+
+const mapDispatchToProps = { fetchProfileRequest };
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(withStyles(styles)(Profile));
