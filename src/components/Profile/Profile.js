@@ -34,6 +34,7 @@ const styles = theme => ({
     },
     Card: {
         boxSizing: 'border-box',
+        minWidth: '60%',
         maxWidth: '60%',
         padding: 10
     },
@@ -81,11 +82,12 @@ const UppercasingTextField = (props) => (
 class Profile extends Component {
     state = {
         date: new Date('2025-01-01'),
-        dateInputDisabled: false
+        dateInputDisabled: false,
+        isCardAdded: false
     };
 
     componentDidMount() {
-        const { fetchProfileRequest, classes } = this.props;
+        const { fetchProfileRequest } = this.props;
         const savedProfile = JSON.parse(window.localStorage.getItem('profile'));
 
         if (savedProfile) fetchProfileRequest(savedProfile);
@@ -109,13 +111,138 @@ class Profile extends Component {
         return `${day}.${month}.${year}`;
     }
 
-    render() {
+    renderAlert() {
+        const { classes } = this.props;
+
+        return (
+            <>
+                <Typography variant="body2" className={classes.Card__P}>
+                    Платежные данные обновлены. Теперь вы можете заказывать такси.
+                </Typography>
+                                
+                <Link to='/map'>
+                    <Button
+                        variant="outlined"
+                        color="primary"
+                    >
+                        Перейти на карту
+                    </Button>
+                </Link>
+            </>
+        );
+    }
+
+    renderForm() {
         const { fetchProfileRequest, classes } = this.props;
 
         const savedProfile = JSON.parse(window.localStorage.getItem('profile'));
         const { cardName, cardNumber, expDate, CVV } = (savedProfile) ? savedProfile : this.props;
 
-        const { date, dateInputDisabled } = this.state;       
+        const { date, dateInputDisabled } = this.state;  
+
+        return (
+            <>
+                <Typography gutterBottom variant="h6" component="h6">
+                    Способ оплаты
+                </Typography>
+                
+                <Formik
+                    initialValues={{
+                        cardName: cardName,
+                        cardNumber: cardNumber,
+                        expDate: expDate,
+                        CVV: CVV
+                    }}
+
+                    validationSchema={BasicFormSchema}
+                                
+                    onSubmit={({ cardName, cardNumber, CVV }) => {
+                        this.setState({
+                            dateInputDisabled: true,
+                            isCardAdded: true
+                        })
+
+                        const expDate = this.getFormattedDate(date);                                    
+                            fetchProfileRequest({ cardName, cardNumber, expDate, CVV });
+                        }}
+
+                        render={({ submitForm }) => (
+                            <Form
+                                className="Form"
+                            >
+                                <Grid
+                                    container
+                                    spacing={3}
+                                >
+                                    <Grid item xs={12} sm={6}>
+                                        <Field
+                                            type="text"
+                                            name="cardName"
+                                            label="Имя владельца"
+                                            fullWidth={true}
+                                            component={UppercasingTextField}
+                                        />
+                                    </Grid>
+                                    <Grid item xs={12} sm={6}>
+                                        <Field
+                                            type="text"
+                                            name="cardNumber"
+                                            label="Номер карты"
+                                            fullWidth={true}
+                                            component={UppercasingTextField}
+                                        />
+                                    </Grid>
+                                        <Grid item xs={12} sm={6}>
+                                            <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                                                <KeyboardDatePicker
+                                                    className={classes.Form__Input_Date}
+                                                    name="expDate"
+                                                    label="Дата окончания действия"
+                                                    id="date-picker-inline"
+                                                    disableToolbar
+                                                    variant="inline"
+                                                    format="MM.dd.yyyy"
+                                                    margin="normal"
+                                                    fullWidth={true}
+                                                    value={date}
+                                                    onChange={this.handleDateChange}
+                                                    disabled={dateInputDisabled}
+                                                />
+                                            </MuiPickersUtilsProvider>
+                                        </Grid>
+                                        <Grid item xs={12} sm={6}>
+                                            <Field
+                                                type="text"
+                                                name="CVV"
+                                                label="CVV"
+                                                helperText="Три цифры на задней стороне карты"
+                                                fullWidth={true}
+                                                component={UppercasingTextField}
+                                            />
+                                        </Grid>
+                                        <Grid item xs={12} sm={6}>
+                                            <Button
+                                                className={classes.Form__Button}
+                                                type="submit"
+                                                variant="contained"
+                                                color="primary"
+                                                onClick={submitForm}
+                                            >
+                                                Сохранить
+                                            </Button>
+                                        </Grid>
+                                    </Grid>
+                            </Form>
+                        )
+                    }
+               />
+            </>
+        );
+    }
+
+    render() {
+        const { classes } = this.props;
+        const { isCardAdded } = this.state; 
 
         return (
             <div className="Profile">
@@ -131,97 +258,7 @@ class Profile extends Component {
                                 Профиль
                             </Typography>
 
-                            <Typography gutterBottom variant="h6" component="h6">
-                                Способ оплаты
-                            </Typography>
-                            <Formik
-                                initialValues={{
-                                    cardName: cardName,
-                                    cardNumber: cardNumber,
-                                    expDate: expDate,
-                                    CVV: CVV
-                                }}
-
-                                validationSchema={BasicFormSchema}
-                                
-                                onSubmit={({ cardName, cardNumber, CVV }) => {
-                                    this.setState({
-                                        dateInputDisabled: true
-                                    })
-
-                                    const expDate = this.getFormattedDate(date);                                    
-                                    fetchProfileRequest({ cardName, cardNumber, expDate, CVV });
-                                }}
-
-                                render={({ submitForm }) => (
-                                    <Form
-                                        className="Form"
-                                    >
-                                        <Grid
-                                            container
-                                            spacing={3}
-                                        >
-                                            <Grid item xs={12} sm={6}>
-                                                <Field
-                                                    type="text"
-                                                    name="cardName"
-                                                    label="Имя владельца"
-                                                    fullWidth={true}
-                                                    component={UppercasingTextField}
-                                                />
-                                            </Grid>
-                                            <Grid item xs={12} sm={6}>
-                                                <Field
-                                                    type="text"
-                                                    name="cardNumber"
-                                                    label="Номер карты"
-                                                    fullWidth={true}
-                                                    component={UppercasingTextField}
-                                                />
-                                            </Grid>
-                                            <Grid item xs={12} sm={6}>
-                                                <MuiPickersUtilsProvider utils={DateFnsUtils}>
-                                                    <KeyboardDatePicker
-                                                        className={classes.Form__Input_Date}
-                                                        name="expDate"
-                                                        label="Дата окончания действия"
-                                                        id="date-picker-inline"
-                                                        disableToolbar
-                                                        variant="inline"
-                                                        format="MM.dd.yyyy"
-                                                        margin="normal"
-                                                        fullWidth={true}
-                                                        value={date}
-                                                        onChange={this.handleDateChange}
-                                                        disabled={dateInputDisabled}
-                                                    />
-                                                </MuiPickersUtilsProvider>
-                                            </Grid>
-                                            <Grid item xs={12} sm={6}>
-                                                <Field
-                                                    type="text"
-                                                    name="CVV"
-                                                    label="CVV"
-                                                    helperText="Три цифры на задней стороне карты"
-                                                    fullWidth={true}
-                                                    component={UppercasingTextField}
-                                                />
-                                            </Grid>
-                                            <Grid item xs={12} sm={6}>
-                                                <Button
-                                                    className={classes.Form__Button}
-                                                    type="submit"
-                                                    variant="contained"
-                                                    color="primary"
-                                                    onClick={submitForm}
-                                                >
-                                                    Сохранить
-                                                </Button>
-                                            </Grid>
-                                        </Grid>
-                                    </Form>
-                                )}
-                            />
+                            {(isCardAdded) ? this.renderAlert() : this.renderForm()}
                         </CardContent>
                     </Card>
                 </Grid>

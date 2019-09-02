@@ -17,7 +17,7 @@ const styles = (theme) => ({
         width: 480,
         padding: 10
     },
-    MapForm__P: {
+    Card__P: {
         marginBottom: 20
     }
 });
@@ -34,7 +34,7 @@ class MapForm extends Component {
                                 Заполните платежные данные
                             </Typography>
 
-                            <Typography variant="body2" className={classes.MapForm__P}>
+                            <Typography variant="body2" className={classes.Card__P}>
                                 Укажите информацию о банковской карте,<br/>чтобы сделать заказ.
                             </Typography>
                            
