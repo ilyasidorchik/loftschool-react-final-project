@@ -86,13 +86,6 @@ class Profile extends Component {
         isCardAdded: false
     };
 
-    componentDidMount() {
-        const { fetchProfileRequest } = this.props;
-        const savedProfile = JSON.parse(window.localStorage.getItem('profile'));
-
-        if (savedProfile) fetchProfileRequest(savedProfile);
-    }
-
     handleDateChange = (date) => {
         this.setState({
             date
@@ -135,8 +128,8 @@ class Profile extends Component {
     renderForm() {
         const { fetchProfileRequest, classes } = this.props;
 
-        const savedProfile = JSON.parse(window.localStorage.getItem('profile'));
-        const { cardName, cardNumber, expDate, CVV } = (savedProfile) ? savedProfile : this.props;
+        const profileSaved = JSON.parse(window.localStorage.getItem('profile'));
+        const { cardName, cardNumber, expDate, CVV } = (profileSaved) ? profileSaved : this.props;
 
         const { date, dateInputDisabled } = this.state;
 

@@ -8,24 +8,24 @@ import PrivateRoute from '../PrivateRoute';
 import Map from '../Map';
 import Profile from '../Profile';
 import { getIsAuthorized, fetchAuthRequest } from '../../modules/Auth';
+import { getCardName, fetchProfileRequest } from '../../modules/Profile';
 
 class AppRouter extends Component {
   componentDidMount() {
-    const { isAuthorized, fetchAuthRequest } = this.props;
+    const { isAuthorized, fetchAuthRequest, cardName } = this.props;
     const authDataSaved = window.localStorage.getItem('authData');
+    const profileSaved = window.localStorage.getItem('profile');
 
     // Если в локальном хранилище есть данные — они записываются в стор
-    if (!isAuthorized && authDataSaved) {
-      fetchAuthRequest(JSON.parse(authDataSaved));
-    }
+    if (!isAuthorized && authDataSaved) fetchAuthRequest(JSON.parse(authDataSaved));
+    if (!cardName && profileSaved) fetchProfileRequest(JSON.parse(profileSaved));
   }
 
   render() {
     const { isAuthorized } = this.props;
     const authDataSaved = window.localStorage.getItem('authData');
 
-    // Неавторизованный пользователь переводится на /login,
-    // авторизованный — на /map
+    // Фикс для избежания дёрганий
     let indexPath, indexComponent;
     if (isAuthorized || authDataSaved) {
       indexPath = '/map';
@@ -51,7 +51,8 @@ class AppRouter extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  isAuthorized: getIsAuthorized(state)
+  isAuthorized: getIsAuthorized(state),
+  cardName: getCardName(state)
 })
 
 const mapDispatchToProps = { fetchAuthRequest };
