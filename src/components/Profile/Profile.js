@@ -9,6 +9,11 @@ import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import Button from "@material-ui/core/Button";
 import Typography from '@material-ui/core/Typography';
+import DateFnsUtils from '@date-io/date-fns';
+import {
+    MuiPickersUtilsProvider,
+    KeyboardDatePicker
+} from '@material-ui/pickers';
 
 const styles = theme => ({
     Grid: {
@@ -25,6 +30,9 @@ const styles = theme => ({
     Grid__Card: {
         marginTop: 50
     },
+    Form__Input_Date: {
+        marginTop: 0
+    },
     Form__Button: {
         marginTop: theme.spacing(2),
     }
@@ -38,8 +46,6 @@ const BasicFormSchema = Yup.object().shape({
         .required("Необходимо заполнить поле")
         .matches(/^[0-9]+$/, "Номер карты должен содержать только цифры")
         .length(16, "Номер карты должен содержать 16 цифр"),
-    expDate: Yup.date()
-        .required("Необходимо заполнить поле"),
     CVV: Yup.string()
         .required("Необходимо заполнить поле")
         .matches(/^[0-9]+$/, "СVV должен содержать только цифры")
@@ -60,8 +66,32 @@ const UppercasingTextField = (props) => (
 );
 
 class Profile extends Component {
+    state = {
+        date: new Date('2025-01-01'),
+        dateInputDisabled: false
+    };
+
+    handleDateChange = (date) => {
+        this.setState({
+            date
+        });
+    };
+
+    getFormattedDate = (date) => {
+        let day = date.getDate();
+        if (day < 10) day = `0${day}`;
+
+        let month = date.getMonth() + 1;
+        if (month < 10) month = `0${month}`;
+
+        let year = date.getFullYear();
+
+        return `${day}.${month}.${year}`;
+    }
+
     render() {
         const { classes } = this.props;
+        const { date, dateInputDisabled } = this.state;
 
         return (
             <div className="Profile">
@@ -89,8 +119,12 @@ class Profile extends Component {
 
                                 validationSchema={BasicFormSchema}
                                 
-                                onSubmit={(values) => {
-                                    console.log(values);
+                                onSubmit={({ cardName, cardNumber, CVV }) => {
+                                    this.setState({
+                                        dateInputDisabled: true
+                                    })
+
+                                    console.log({ cardName, cardNumber, expDate: this.getFormattedDate(date), CVV });
                                 }}
 
                                 render={({ submitForm }) => (
@@ -120,13 +154,22 @@ class Profile extends Component {
                                                 />
                                             </Grid>
                                             <Grid item xs={12} sm={6}>
-                                                <Field
-                                                    type="date"
-                                                    name="expDate"
-                                                    label="Дата окончания действия"
-                                                    fullWidth={true}
-                                                    component={UppercasingTextField}
-                                                />
+                                                <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                                                    <KeyboardDatePicker
+                                                        className={classes.Form__Input_Date}
+                                                        name="expDate"
+                                                        label="Дата окончания действия"
+                                                        id="date-picker-inline"
+                                                        disableToolbar
+                                                        variant="inline"
+                                                        format="MM.dd.yyyy"
+                                                        margin="normal"
+                                                        fullWidth={true}
+                                                        value={date}
+                                                        onChange={this.handleDateChange}
+                                                        disabled={dateInputDisabled}
+                                                    />
+                                                </MuiPickersUtilsProvider>
                                             </Grid>
                                             <Grid item xs={12} sm={6}>
                                                 <Field
@@ -151,7 +194,6 @@ class Profile extends Component {
                                             </Grid>
                                         </Grid>
                                     </Form>
-                                    
                                 )}
                             />
                         </CardContent>
