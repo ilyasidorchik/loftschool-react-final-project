@@ -138,7 +138,7 @@ class Profile extends Component {
         const savedProfile = JSON.parse(window.localStorage.getItem('profile'));
         const { cardName, cardNumber, expDate, CVV } = (savedProfile) ? savedProfile : this.props;
 
-        const { date, dateInputDisabled } = this.state;  
+        const { date, dateInputDisabled } = this.state;
 
         return (
             <>

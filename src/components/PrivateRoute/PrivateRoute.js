@@ -14,12 +14,16 @@ class PrivateRoute extends PureComponent {
     renderRoute = (props) => {
         const { isAuthorized, component: Component } = this.props;
 
-        return (isAuthorized || window.localStorage.getItem('isAuthorized'))
+        return (isAuthorized || window.localStorage.getItem('authData'))
             ? <Component {...props} />
             : <Redirect to="/login" />;
     };
 }
 
-export default connect(state => ({
+const mapStateToProps = (state) => ({
     isAuthorized: getIsAuthorized(state)
-}))(PrivateRoute);
+})
+
+export default connect(
+    mapStateToProps
+)(PrivateRoute);

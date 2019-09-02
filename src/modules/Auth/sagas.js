@@ -13,7 +13,7 @@ function* fetchAuthFlow(action) {
 
         const result = yield call(authUser, username, password);
         if (result.success) {
-            window.localStorage.setItem('isAuthorized', result.success);
+            window.localStorage.setItem('authData', JSON.stringify({ username, password }));
             yield put(fetchAuthSuccess(result));
         }
         else {
@@ -27,7 +27,7 @@ function* fetchAuthFlow(action) {
 
 function* fetchLogoutWatcher() {
     yield takeLatest(fetchLogoutRequest, () => {
-        window.localStorage.removeItem('isAuthorized');
+        window.localStorage.removeItem('authData');
     });
 }
 
