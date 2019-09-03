@@ -1,4 +1,4 @@
-import { takeLatest, put, call } from "redux-saga/effects";
+import { takeLatest, call, put, select } from "redux-saga/effects";
 
 import {
     fetchMapRequest,
@@ -8,6 +8,7 @@ import {
     fetchAddressListSuccess,
     fetchAddressListFailure
 } from "./map";
+import { getCardName } from '../Profile';
 import { mapInit, fetchAddressList } from "./api.js";
 
 function* fetchMapWatcher() {
@@ -22,7 +23,9 @@ function* fetchMapFlow(action) {
         const map = yield call(mapInit, mapContainer);
         if (map) {
             yield put(fetchMapSuccess());
-            yield put(fetchAddressListRequest());
+
+            const isProfileFilledIn = yield select(getCardName);
+            if (isProfileFilledIn) yield put(fetchAddressListRequest());
         }
     }
     catch (error) {
