@@ -1,1 +1,1 @@
-export const getRoute = (state) => state.profile.route;
+export const getRoute = (state) => state.route.route;

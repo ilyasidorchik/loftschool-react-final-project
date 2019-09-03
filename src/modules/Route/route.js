@@ -10,7 +10,7 @@ export const fetchRouteFailure = createAction(constants.FETCH_ROUTE_FAILURE);
 const route = handleActions(
     {
         [fetchRouteRequest]: () => null,
-        [fetchRouteSuccess]: (_state, action) => action.payload.route,
+        [fetchRouteSuccess]: (_state, action) => action.payload,
         [fetchRouteFailure]: (_state, action) => action.payload
     },
     null
