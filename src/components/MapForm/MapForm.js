@@ -15,6 +15,7 @@ import Grid from "@material-ui/core/Grid";
 
 import { getCardName } from '../../modules/Profile';
 import { getAddressList, fetchAddressListRequest } from '../../modules/Map';
+import { getRoute, fetchRouteRequest } from '../../modules/Route';
 
 const styles = (theme) => ({
     MapForm: {
@@ -83,7 +84,7 @@ class MapForm extends Component {
     }
 
     renderOrderForm() {
-        const { addressList, classes } = this.props;
+        const { addressList, fetchRouteRequest, classes } = this.props;
     
         const ranges = (Array.isArray(addressList)) ? addressList : [];
 
@@ -96,14 +97,13 @@ class MapForm extends Component {
                 <Formik
                     initialValues={{
                         address1: "",
-                        address2: "",
-                        name: ""
+                        address2: ""
                     }}
 
                     validationSchema={BasicFormSchema}
                                 
-                    onSubmit={(values) => {
-                        console.log(values)
+                    onSubmit={({ address1, address2 }) => {
+                        fetchRouteRequest({ address1, address2 });
                     }}
 
                     render={({
@@ -199,10 +199,14 @@ class MapForm extends Component {
 
 const mapStateToProps = (state) => ({
     cardName: getCardName(state),
-    addressList: getAddressList(state)
+    addressList: getAddressList(state),
+    route: getRoute(state)
 });
 
-const mapDispatchToProps = { fetchAddressListRequest };
+const mapDispatchToProps = {
+    fetchAddressListRequest,
+    fetchRouteRequest
+};
 
 export default connect(
     mapStateToProps,

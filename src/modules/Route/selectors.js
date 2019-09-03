@@ -1,0 +1,1 @@
+export const getRoute = (state) => state.profile.route;
