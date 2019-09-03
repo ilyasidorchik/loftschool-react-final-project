@@ -1,21 +1,24 @@
-import React, { PureComponent } from 'react';
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
 
-import { mapInit } from '../../modules/Map';
+import { apiKey } from '../../modules/Map/apiKey';
+import { fetchMapRequest } from '../../modules/Map';
 import './MapBox.css';
 
-export default class Map extends PureComponent {
-    map = null;
+class MapBox extends Component {
     mapContainer = React.createRef();
 
     componentDidMount() {
-        this.map = mapInit(this.mapContainer);
-    }
-
-    componentWillUnmount() {
-        if (this.map) this.map.remove();
+        const { fetchMapRequest } = this.props;
+        fetchMapRequest(this.mapContainer, apiKey);
     }
 
     render() {
         return <div className="MapBox" ref={this.mapContainer} />;
     }
-} 
+}
+
+export default connect(
+    () => {},
+    { fetchMapRequest }
+)(MapBox);

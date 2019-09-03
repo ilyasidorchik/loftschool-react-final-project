@@ -41,14 +41,11 @@ const styles = theme => ({
     Grid__Card: {
         marginTop: 50
     },
-    Card__P: {
-        marginBottom: 20
-    },
     Form__Input_Date: {
         marginTop: 0
     },
-    Form__Button: {
-        marginTop: theme.spacing(2),
+    Card__Button: {
+        marginTop: 20
     }
 });
 
@@ -109,12 +106,13 @@ class Profile extends Component {
 
         return (
             <>
-                <Typography variant="body2" className={classes.Card__P}>
+                <Typography variant="body2">
                     Платежные данные обновлены. Теперь вы можете заказывать такси.
                 </Typography>
                                 
                 <Link to='/map'>
                     <Button
+                        className={classes.Card__Button}
                         variant="outlined"
                         color="primary"
                     >
@@ -215,7 +213,6 @@ class Profile extends Component {
                                         </Grid>
                                         <Grid item xs={12} sm={6}>
                                             <Button
-                                                className={classes.Form__Button}
                                                 type="submit"
                                                 variant="contained"
                                                 color="primary"

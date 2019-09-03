@@ -5,6 +5,9 @@
 /.pnp
 .pnp.js
 
+# apiKeys
+src/modules/Map/apiKey.js
+
 # testing
 /coverage
 

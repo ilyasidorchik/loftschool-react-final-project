@@ -24,12 +24,13 @@ const styles = theme => ({
     Card: {
         boxSizing: 'border-box',
         minWidth: '25%',
+        maxWidth: '25%',
         padding: 10
     },
     FormGrid: {
         minHeight: 200
     },
-    button: {
+    Button: {
         maxWidth: 83
     },
 });
@@ -101,7 +102,7 @@ class Login extends PureComponent {
                                             container
                                             direction="column"
                                             justify="space-around"
-                                            align-items="start"
+                                            align-items="center"
                                             className={classes.FormGrid}
                                         >
                                             <Field
@@ -121,7 +122,7 @@ class Login extends PureComponent {
                                                 onClick={submitForm}
                                                 variant="outlined"
                                                 color="primary"
-                                                className={classes.button}
+                                                className={classes.Button}
                                             >
                                                 Войти
                                             </Button>
