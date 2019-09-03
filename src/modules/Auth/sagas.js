@@ -17,7 +17,7 @@ function* fetchAuthFlow(action) {
             yield put(fetchAuthSuccess(result));
         }
         else {
-            throw new Error(result.error)
+            throw new Error(result.error);
         }
     }
     catch (error) {

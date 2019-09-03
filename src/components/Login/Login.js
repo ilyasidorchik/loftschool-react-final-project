@@ -37,10 +37,12 @@ const styles = theme => ({
 
 const BasicFormSchema = Yup.object().shape({
     username: Yup.string()
-      .email("Неверная электронная почта")
-      .required("Необходимо заполнить поле"),
+        .required("Необходимо заполнить поле")
+        .email("Неверная электронная почта")
+        .matches(/(test@test.com)/, "Неверная электронная почта"),
     password: Yup.string()
-      .required("Необходимо заполнить поле")
+        .required("Необходимо заполнить поле")
+        .matches(/(123123)/, "Неверный пароль")
 });
 
 const UppercasingTextField = (props) => (
