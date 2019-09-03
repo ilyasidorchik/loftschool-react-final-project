@@ -11,7 +11,7 @@ const route = handleActions(
     {
         [fetchRouteRequest]: () => null,
         [fetchRouteSuccess]: (_state, action) => action.payload,
-        [fetchRouteFailure]: (_state, action) => action.payload
+        [fetchRouteFailure]: (_state, action) => null
     },
     null
 );

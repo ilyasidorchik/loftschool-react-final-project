@@ -15,7 +15,7 @@ import Grid from "@material-ui/core/Grid";
 
 import { getCardName } from '../../modules/Profile';
 import { getAddressList, fetchAddressListRequest } from '../../modules/Map';
-import { getRoute, fetchRouteRequest } from '../../modules/Route';
+import { getRoute, fetchRouteRequest, fetchRouteFailure } from '../../modules/Route';
 
 const styles = (theme) => ({
     MapForm: {
@@ -79,6 +79,31 @@ class MapForm extends Component {
                         Перейти в профиль
                     </Button>
                 </Link>
+            </>
+        );
+    }
+
+    renderNewOrderForm() {
+        const { fetchRouteFailure, classes } = this.props;
+
+        return (
+            <>
+                <Typography gutterBottom variant="h4" component="h2">
+                    Заказ размещен
+                </Typography>
+
+                <Typography variant="body2">
+                    Такси уже едет к вам. Прибудет приблизительно<br/>через 10 минут.
+                </Typography>
+                            
+                <Button
+                    className={classes.Card__Button}
+                    variant="outlined"
+                    color="primary"
+                    onClick={fetchRouteFailure}
+                >
+                    Сделать новый заказ…
+                </Button>
             </>
         );
     }
@@ -179,7 +204,7 @@ class MapForm extends Component {
     }
 
     render() {
-        const { cardName, classes } = this.props;
+        const { cardName, route, classes } = this.props;
         const profileSaved = JSON.parse(window.localStorage.getItem('profile'));
 
         return (
@@ -187,7 +212,7 @@ class MapForm extends Component {
                 <Card className={classes.Card}>
                     <CardContent>
                         {(cardName || profileSaved)
-                            ? this.renderOrderForm()
+                            ? (route) ? this.renderNewOrderForm() : this.renderOrderForm()
                             : this.renderMessage()
                         }
                     </CardContent>
@@ -205,7 +230,8 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = {
     fetchAddressListRequest,
-    fetchRouteRequest
+    fetchRouteRequest,
+    fetchRouteFailure
 };
 
 export default connect(
