@@ -25,7 +25,8 @@ function* fetchMapFlow(action) {
             yield put(fetchMapSuccess());
 
             const isProfileFilledIn = yield select(getCardName);
-            if (isProfileFilledIn) yield put(fetchAddressListRequest());
+            const profileSaved = JSON.parse(window.localStorage.getItem('profile'));
+            if (isProfileFilledIn || profileSaved) yield put(fetchAddressListRequest());
         }
     }
     catch (error) {
