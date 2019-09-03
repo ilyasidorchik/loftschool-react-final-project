@@ -96,7 +96,8 @@ class MapForm extends Component {
                 <Formik
                     initialValues={{
                         address1: "",
-                        address2: ""
+                        address2: "",
+                        name: ""
                     }}
 
                     validationSchema={BasicFormSchema}
@@ -107,9 +108,9 @@ class MapForm extends Component {
 
                     render={({
                             values,
-                            submitForm,
+                            handleChange,
                             isValid,
-                            isSubmitting
+                            submitForm
                         }) => (
                         <Form>
                             <Grid
@@ -130,6 +131,7 @@ class MapForm extends Component {
                                     InputLabelProps={{
                                         shrink: true,
                                     }}
+                                    onChange={handleChange}
                                 >
                                     {ranges.map(option => (
                                         <MenuItem key={option} value={option}>
@@ -150,11 +152,12 @@ class MapForm extends Component {
                                         shrink: true,
                                     }}
                                 >
-                                    {ranges.map(option => (
-                                        <MenuItem key={option} value={option}>
+                                    {ranges.map(option => {
+                                        if (option === values.address1) return null;
+                                        return (<MenuItem key={option} value={option}>
                                             {option}
-                                        </MenuItem>
-                                    ))}
+                                        </MenuItem>);
+                                    })}
                                 </Field>
                                 
                                 <Button
