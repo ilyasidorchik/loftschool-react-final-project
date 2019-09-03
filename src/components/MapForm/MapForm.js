@@ -15,7 +15,7 @@ import Grid from "@material-ui/core/Grid";
 
 import { getCardName } from '../../modules/Profile';
 import { getAddressList, fetchAddressListRequest } from '../../modules/Map';
-import { getRoute, fetchRouteRequest, fetchRouteFailure } from '../../modules/Route';
+import { getRoute, fetchRouteRequest, fetchNewRouteRequest } from '../../modules/Route';
 
 const styles = (theme) => ({
     MapForm: {
@@ -84,7 +84,7 @@ class MapForm extends Component {
     }
 
     renderNewOrderForm() {
-        const { fetchRouteFailure, classes } = this.props;
+        const { fetchNewRouteRequest, classes } = this.props;
 
         return (
             <>
@@ -100,7 +100,7 @@ class MapForm extends Component {
                     className={classes.Card__Button}
                     variant="outlined"
                     color="primary"
-                    onClick={fetchRouteFailure}
+                    onClick={fetchNewRouteRequest}
                 >
                     Сделать новый заказ…
                 </Button>
@@ -231,7 +231,7 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = {
     fetchAddressListRequest,
     fetchRouteRequest,
-    fetchRouteFailure
+    fetchNewRouteRequest
 };
 
 export default connect(
