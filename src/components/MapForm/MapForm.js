@@ -105,7 +105,12 @@ class MapForm extends Component {
                         console.log(values)
                     }}
 
-                    render={({ submitForm }) => (
+                    render={({
+                            values,
+                            submitForm,
+                            isValid,
+                            isSubmitting
+                        }) => (
                         <Form>
                             <Grid
                                 container
@@ -118,6 +123,7 @@ class MapForm extends Component {
                                     type="text"
                                     name="address1"
                                     label="Адрес отправления"
+                                    value={values.address1}
                                     select
                                     margin="normal"
                                     component={UppercasingTextField}
@@ -136,6 +142,7 @@ class MapForm extends Component {
                                     type="text"
                                     name="address2"
                                     label="Адрес прибытия"
+                                    value={values.address2}
                                     select
                                     margin="normal"
                                     component={UppercasingTextField}
@@ -151,11 +158,12 @@ class MapForm extends Component {
                                 </Field>
                                 
                                 <Button
-                                    type="submit"
-                                    onClick={submitForm}
-                                    variant="outlined"
-                                    color="primary"
                                     className={`${classes.Button} ${classes.Card__Button}`}
+                                    type="submit"
+                                    variant="outlined"
+                                    color="primary" 
+                                    disabled={!isValid}
+                                    onClick={submitForm}
                                 >
                                     Вызвать такси
                                 </Button>

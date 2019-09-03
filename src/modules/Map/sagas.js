@@ -8,7 +8,7 @@ import {
     fetchAddressListSuccess,
     fetchAddressListFailure
 } from "./map";
-import { mapInit, fetchAddressList} from "./api.js";
+import { mapInit, fetchAddressList } from "./api.js";
 
 function* fetchMapWatcher() {
     yield takeLatest(fetchMapRequest, fetchMapFlow);
