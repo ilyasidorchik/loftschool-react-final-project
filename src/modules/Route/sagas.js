@@ -1,11 +1,12 @@
 import { takeLatest, call, put } from 'redux-saga/effects';
 
-import { fetchRouteRequest, fetchRouteFailure, fetchRouteSuccess } from './route';
-import { fetchRoute, drawRoute, flyTo } from '../Map/api';
+import { fetchRouteRequest, fetchRouteFailure, fetchRouteSuccess, fetchNewRouteRequest } from './route';
+import { fetchRoute, drawRoute, removeRoute, flyTo } from '../Map/api';
 
 function* fetchRouteWatcher() {
     yield takeLatest(fetchRouteRequest, fetchRouteFlow);
     yield takeLatest(fetchRouteSuccess, fetchRouteSuccessFlow);
+    yield takeLatest(fetchNewRouteRequest, fetchNewRouteFlow);
 }
 
 function* fetchRouteFlow(action) {
@@ -24,6 +25,15 @@ function* fetchRouteFlow(action) {
 function* fetchRouteSuccessFlow(action) {
     try {
         yield call(flyTo, action.payload[0]);
+    }
+    catch (error) {
+        throw error;
+    }
+}
+
+function* fetchNewRouteFlow() {
+    try {
+        yield call(removeRoute);
     }
     catch (error) {
         throw error;
