@@ -13,8 +13,9 @@ import { fieldToTextField } from 'formik-material-ui';
 import * as Yup from "yup";
 import Grid from "@material-ui/core/Grid";
 
-import { getCardName } from '../../modules/Profile';
 import { getAddressList, fetchAddressListRequest } from '../../modules/Map';
+import { getCardName } from '../../modules/Profile';
+import { getProfileInLocalStorage } from '../../modules/Profile/api';
 import { getRoute, fetchRouteRequest, fetchNewRouteRequest } from '../../modules/Route';
 
 const styles = (theme) => ({
@@ -205,13 +206,12 @@ class MapForm extends Component {
 
     render() {
         const { cardName, route, classes } = this.props;
-        const profileSaved = JSON.parse(window.localStorage.getItem('profile'));
 
         return (
             <div className={classes.MapForm}>
                 <Card className={classes.Card}>
                     <CardContent>
-                        {(cardName || profileSaved)
+                        {(cardName || getProfileInLocalStorage())
                             ? (route) ? this.renderNewOrderForm() : this.renderOrderForm()
                             : this.renderMessage()
                         }

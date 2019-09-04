@@ -24,6 +24,7 @@ import {
     getCVV,
     fetchProfileRequest
 } from '../../modules/Profile';
+import { getProfileInLocalStorage } from '../../modules/Profile/api';
 
 const styles = theme => ({
     Grid: {
@@ -125,10 +126,7 @@ class Profile extends Component {
 
     renderForm() {
         const { fetchProfileRequest, classes } = this.props;
-
-        const profileSaved = JSON.parse(window.localStorage.getItem('profile'));
-        const { cardName, cardNumber, expDate, CVV } = (profileSaved) ? profileSaved : this.props;
-
+        const { cardName, cardNumber, expDate, CVV } = (getProfileInLocalStorage()) ? getProfileInLocalStorage() : this.props;
         const { date, dateInputDisabled } = this.state;
 
         return (

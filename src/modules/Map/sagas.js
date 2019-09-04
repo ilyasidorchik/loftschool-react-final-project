@@ -8,8 +8,9 @@ import {
     fetchAddressListSuccess,
     fetchAddressListFailure
 } from "./map";
-import { getCardName } from '../Profile';
 import { mapInit, fetchAddressList } from "./api.js";
+import { getCardName } from '../Profile';
+import { getProfileInLocalStorage } from '../Profile/api';
 
 function* fetchMapWatcher() {
     yield takeLatest(fetchMapRequest, fetchMapFlow);
@@ -25,8 +26,7 @@ function* fetchMapFlow(action) {
             yield put(fetchMapSuccess());
 
             const isProfileFilledIn = yield select(getCardName);
-            const profileSaved = JSON.parse(window.localStorage.getItem('profile'));
-            if (isProfileFilledIn || profileSaved) yield put(fetchAddressListRequest());
+            if (isProfileFilledIn || getProfileInLocalStorage()) yield put(fetchAddressListRequest());
         }
     }
     catch (error) {

@@ -1,6 +1,7 @@
-import { takeLatest, put } from 'redux-saga/effects';
+import { takeLatest, call, put } from 'redux-saga/effects';
 
 import { fetchProfileRequest, fetchProfileSuccess, fetchProfileFailure } from './profile';
+import { setProfileInLocalStorage } from './api';
 
 function* fetchProfileWatcher() {
     yield takeLatest(fetchProfileRequest, fetchProfileFlow);
@@ -8,8 +9,7 @@ function* fetchProfileWatcher() {
 
 function* fetchProfileFlow(action) {
     try {
-        window.localStorage.setItem('profile', JSON.stringify(action.payload));
-
+        yield call(setProfileInLocalStorage(action.payload));
         yield put(fetchProfileSuccess(action.payload));
     }
     catch (error) {
