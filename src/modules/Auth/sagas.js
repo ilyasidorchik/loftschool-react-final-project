@@ -1,6 +1,6 @@
 import { takeLatest, call, put, fork }  from 'redux-saga/effects';
 
-import { fetchAuthRequest, fetchAuthSuccess, fetchAuthFailure, fetchLogoutRequest } from './auth';
+import { fetchAuthRequest, fetchAuthSuccess, fetchAuthFailure, fetchLogoutRequest } from './duck';
 import { authUser } from './api';
 
 function* fetchAuthWatcher() {

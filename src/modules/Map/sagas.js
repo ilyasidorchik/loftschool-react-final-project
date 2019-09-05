@@ -7,7 +7,7 @@ import {
     fetchAddressListRequest,
     fetchAddressListSuccess,
     fetchAddressListFailure
-} from "./map";
+} from "./duck";
 import { mapInit, fetchAddressList } from "./api.js";
 import { getCardName } from '../Profile';
 import { getProfileInLocalStorage } from '../Profile/api';

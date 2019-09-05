@@ -1,6 +1,6 @@
 import { takeLatest, call, put } from 'redux-saga/effects';
 
-import { fetchRouteRequest, fetchRouteFailure, fetchRouteSuccess, fetchNewRouteRequest } from './route';
+import { fetchRouteRequest, fetchRouteFailure, fetchRouteSuccess, fetchNewRouteRequest } from './duck';
 import { fetchRoute, drawRoute, removeRoute, flyTo } from '../Map/api';
 
 function* fetchRouteWatcher() {

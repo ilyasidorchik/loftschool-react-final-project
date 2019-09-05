@@ -1,6 +1,6 @@
 import { takeLatest, call, put } from 'redux-saga/effects';
 
-import { fetchProfileRequest, fetchProfileSuccess, fetchProfileFailure } from './profile';
+import { fetchProfileRequest, fetchProfileSuccess, fetchProfileFailure } from './duck';
 import { setProfileInLocalStorage } from './api';
 
 function* fetchProfileWatcher() {
