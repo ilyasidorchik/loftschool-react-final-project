@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { withStyles } from '@material-ui/core/styles';
 import { Formik, Field, Form } from 'formik';
+import formatStringByPattern from "format-string-by-pattern";
 import MuiTextField from '@material-ui/core/TextField';
 import { fieldToTextField } from 'formik-material-ui';
 import * as Yup from "yup";
@@ -144,6 +145,10 @@ class Profile extends Component {
                     }}
 
                     validationSchema={BasicFormSchema}
+
+                    handleChange={(e) => {
+                        return formatStringByPattern("9999 9999 9999 9999", e.target.value);
+                    }}
                                 
                     onSubmit={({ cardName, cardNumber, CVV }) => {
                         this.setState({
@@ -153,9 +158,13 @@ class Profile extends Component {
 
                         const expDate = this.getFormattedDate(date);                                    
                             fetchProfileRequest({ cardName, cardNumber, expDate, CVV });
-                        }}
+                        }
+                    }
 
-                        render={({ submitForm }) => (
+                    render={({
+                        submitForm,
+                        handleChange
+                    }) => (
                             <Form
                                 className="Form"
                             >
@@ -179,6 +188,7 @@ class Profile extends Component {
                                             label="Номер карты"
                                             fullWidth={true}
                                             component={UppercasingTextField}
+                                            onChange={handleChange}
                                         />
                                     </Grid>
                                         <Grid item xs={12} sm={6}>
