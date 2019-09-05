@@ -73,7 +73,8 @@ export const drawRoute = (route) => {
 };
 
 export const removeRoute = () => {
-    // map.removeLayer(layerId);
+    map.removeLayer(layerId);
+    map.removeSource(layerId);
 };
           
 export const flyTo = (point) => {
