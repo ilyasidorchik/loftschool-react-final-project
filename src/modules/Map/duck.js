@@ -1,15 +1,26 @@
 import { createAction, handleActions } from 'redux-actions';
 import { combineReducers } from 'redux';
 
-import * as constants from './constants';
 
-export const fetchMapRequest = createAction(constants.FETCH_MAP_REQUEST);
-export const fetchMapSuccess = createAction(constants.FETCH_MAP_SUCCESS);
-export const fetchMapFailure = createAction(constants.FETCH_MAP_FAILURE);
+const STORE_KEY = 'MAP';
 
-export const fetchAddressListRequest = createAction(constants.FETCH_ADDRESS_LIST_REQUEST);
-export const fetchAddressListSuccess = createAction(constants.FETCH_ADDRESS_LIST_SUCCESS);
-export const fetchAddressListFailure = createAction(constants.FETCH_ADDRESS_LIST_FAILURE);
+export const FETCH_MAP_REQUEST = `${STORE_KEY}/FETCH_MAP_REQUEST`;
+export const FETCH_MAP_SUCCESS = `${STORE_KEY}/FETCH_MAP_SUCCESS`;
+export const FETCH_MAP_FAILURE = `${STORE_KEY}/FETCH_MAP_FAILURE`;
+
+export const FETCH_ADDRESS_LIST_REQUEST = `${STORE_KEY}/FETCH_ADDRESS_LIST_REQUEST`;
+export const FETCH_ADDRESS_LIST_SUCCESS = `${STORE_KEY}/FETCH_ADDRESS_LIST_SUCCESS`;
+export const FETCH_ADDRESS_LIST_FAILURE = `${STORE_KEY}/FETCH_ADDRESS_LIST_FAILURE`;
+
+
+export const fetchMapRequest = createAction(FETCH_MAP_REQUEST);
+export const fetchMapSuccess = createAction(FETCH_MAP_SUCCESS);
+export const fetchMapFailure = createAction(FETCH_MAP_FAILURE);
+
+export const fetchAddressListRequest = createAction(FETCH_ADDRESS_LIST_REQUEST);
+export const fetchAddressListSuccess = createAction(FETCH_ADDRESS_LIST_SUCCESS);
+export const fetchAddressListFailure = createAction(FETCH_ADDRESS_LIST_FAILURE);
+
 
 const addressList = handleActions(
     {

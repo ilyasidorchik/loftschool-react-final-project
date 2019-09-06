@@ -1,12 +1,16 @@
 import { createAction, handleActions } from 'redux-actions';
 import { combineReducers } from 'redux';
 
-import * as constants from './constants';
+const STORE_KEY = 'AUTH';
+export const FETCH_AUTH_REQUEST = `${STORE_KEY}/FETCH_AUTH_REQUEST`;
+export const FETCH_AUTH_SUCCESS = `${STORE_KEY}/FETCH_AUTH_SUCCESS`;
+export const FETCH_AUTH_FAILURE = `${STORE_KEY}/FETCH_AUTH_FAILURE`;
+export const FETCH_LOGOUT_REQUEST = `${STORE_KEY}/FETCH_LOGOUT_REQUEST`;
 
-export const fetchAuthRequest   = createAction(constants.FETCH_AUTH_REQUEST);
-export const fetchAuthSuccess   = createAction(constants.FETCH_AUTH_SUCCESS);
-export const fetchAuthFailure   = createAction(constants.FETCH_AUTH_FAILURE);
-export const fetchLogoutRequest = createAction(constants.FETCH_LOGOUT_REQUEST);
+export const fetchAuthRequest = createAction(FETCH_AUTH_REQUEST);
+export const fetchAuthSuccess = createAction(FETCH_AUTH_SUCCESS);
+export const fetchAuthFailure = createAction(FETCH_AUTH_FAILURE);
+export const fetchLogoutRequest = createAction(FETCH_LOGOUT_REQUEST);
 
 const isAuthorized = handleActions(
     {
