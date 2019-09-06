@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import { apiKey } from '../../modules/Map/apiKey';
-import { fetchMapRequest } from '../../modules/Map';
+import { apiKey } from '../../../modules/Map/apiKey';
+import { fetchMapRequest } from '../../../modules/Map';
 import './MapBox.css';
 
 class MapBox extends Component {

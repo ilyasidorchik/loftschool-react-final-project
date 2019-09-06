@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react';
 import { Route, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 
-import { getIsAuthorized } from '../../modules/Auth';
+import { getIsAuthorized } from '../../../modules/Auth';
 
 class PrivateRoute extends PureComponent {
     render() {

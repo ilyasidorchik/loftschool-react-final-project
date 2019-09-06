@@ -3,12 +3,12 @@ import { BrowserRouter, Switch, Redirect, Route } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import Header from '../Header';
-import Login from '../Login';
+import Login from '../../Login';
 import PrivateRoute from '../PrivateRoute';
-import Map from '../Map';
-import Profile from '../Profile';
-import { getIsAuthorized, fetchAuthRequest } from '../../modules/Auth';
-import { getCardName, fetchProfileRequest } from '../../modules/Profile';
+import Map from '../../Map';
+import Profile from '../../Profile';
+import { getIsAuthorized, fetchAuthRequest } from '../../../modules/Auth';
+import { getCardName, fetchProfileRequest } from '../../../modules/Profile';
 
 class AppRouter extends Component {
   componentDidMount() {
