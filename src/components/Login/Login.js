@@ -14,7 +14,7 @@ import Typography from '@material-ui/core/Typography';
 
 import { getIsAuthorized, fetchAuthRequest } from '../../modules/Auth';
 
-const styles = theme => ({
+export const styles = theme => ({
     Grid: {
         minHeight: '100vh',
     },
@@ -58,22 +58,22 @@ const UppercasingTextField = (props) => (
     />
 );
 
-class Login extends PureComponent {
+export class Login extends PureComponent {
     render() {
         const { isAuthorized } = this.props;
 
-        return isAuthorized ? this.renderApp() : this.renderLogin(this.props);
+        return isAuthorized ? this.renderApp() : this.renderLogin();
     }
 
     renderApp() {
-        return <Redirect to='/map' />;
+        return <Redirect to="/map" />;
     }
     
     renderLogin() {
         const { fetchAuthRequest, classes } = this.props;
 
         return (
-            <div className="Login">
+            <div className="Login" data-testid="Login">
                 <Grid
                     container
                     direction="column"
@@ -98,7 +98,10 @@ class Login extends PureComponent {
                                     fetchAuthRequest({ username, password });
                                 }}
 
-                                render={({ submitForm }) => (
+                                render={({
+                                    isValid,
+                                    submitForm
+                                }) => (
                                     <Form>
                                          <Grid
                                             container
@@ -120,11 +123,13 @@ class Login extends PureComponent {
                                                 component={UppercasingTextField}
                                             />
                                             <Button
+                                                className={classes.Button}
+                                                data-testid="SignInButton"
                                                 type="submit"
                                                 onClick={submitForm}
                                                 variant="outlined"
                                                 color="primary"
-                                                className={classes.Button}
+                                                disabled={!isValid}
                                             >
                                                 Войти
                                             </Button>
@@ -141,6 +146,8 @@ class Login extends PureComponent {
     }
 }
 
+export const LoginStyled = withStyles(styles)(Login);
+
 const mapStateToProps = (state) => ({
     isAuthorized: getIsAuthorized(state)
 });
@@ -150,6 +157,4 @@ const mapDispatchToProps = { fetchAuthRequest };
 export default connect(
     mapStateToProps,
     mapDispatchToProps
-)(withRouter(
-    withStyles(styles)(Login)
-));
+)(withRouter(LoginStyled));
