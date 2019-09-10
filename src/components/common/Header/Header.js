@@ -28,27 +28,30 @@ class Header extends PureComponent {
 
     render() {
         const { isAuthorized, classes } = this.props;
-
+        
         return (
-            <div className={'Header ' + classes.root}>
+            <div className={'Header ' + classes.root} data-testid="Header">
                 <AppBar position="static" color="inherit">
                     <Toolbar>
                         <Typography variant="h6" className={classes.title}>
                             Loft Taxi
                         </Typography>
-
-                        <NavLink to="/map" component={Map}>
-                            <Button color="default">Карта</Button>
+                        
+                        <NavLink to="/map" data-testid="MapLink" component={Map}>
+                            <Button color="default">
+                                Карта
+                            </Button>
                         </NavLink>
-                        <NavLink to="/profile" component={Map}>
+
+                        <NavLink to="/profile" data-testid="ProfileLink" component={Map}>
                             <Button color="default">Профиль</Button>
                         </NavLink>
                         
                         {isAuthorized || window.localStorage.getItem('isAuthorized')
-                            ? (<NavLink to="/logout" onClick={this.handleClick}>
+                            ? (<NavLink to="/logout" onClick={this.handleClick} data-testid="LogoutLink">
                                 <Button color="default">Выйти</Button>
                             </NavLink>)
-                            : (<NavLink to="/login" component={Map}>
+                            : (<NavLink to="/login" component={Map} data-testid="LoginLink">
                                 <Button color="default">Войти</Button>
                             </NavLink>)
                         }
@@ -59,6 +62,8 @@ class Header extends PureComponent {
     }
 }
 
+export const HeaderStyled = withStyles(styles)(Header);
+
 const mapStateToProps = (state) => ({
     isAuthorized: getIsAuthorized(state)
 });
@@ -68,6 +73,4 @@ const mapDispatchToProps = { fetchLogoutRequest };
 export default connect(
     mapStateToProps,
     mapDispatchToProps
-)(withRouter(
-    withStyles(styles)(Header)
-));
+)(withRouter(HeaderStyled));
