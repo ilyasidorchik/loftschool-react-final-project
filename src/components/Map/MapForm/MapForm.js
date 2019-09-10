@@ -29,6 +29,9 @@ const styles = (theme) => ({
         width: 480,
         padding: 10
     },
+    Link: {
+        textDecoration: 'none'
+    },
     Card__Button: {
         marginTop: 20
     },
@@ -71,7 +74,7 @@ class MapForm extends Component {
                     Укажите информацию о банковской карте,<br/>чтобы сделать заказ.
                 </Typography>
                             
-                <Link to='/profile'>
+                <Link to='/profile' className={classes.Link}>
                     <Button
                         className={classes.Card__Button}
                         variant="outlined"

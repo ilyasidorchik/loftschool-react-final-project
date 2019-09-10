@@ -46,6 +46,9 @@ const styles = theme => ({
     Form__Input_Date: {
         marginTop: 0
     },
+    Link: {
+        textDecoration: 'none'
+    },
     Card__Button: {
         marginTop: 20
     }
@@ -112,7 +115,7 @@ class Profile extends Component {
                     Платежные данные обновлены. Теперь вы можете заказывать такси.
                 </Typography>
                                 
-                <Link to='/map'>
+                <Link to='/map' className={classes.Link}>
                     <Button
                         className={classes.Card__Button}
                         variant="outlined"

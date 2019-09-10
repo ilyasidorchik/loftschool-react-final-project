@@ -16,6 +16,9 @@ const styles = (theme) => ({
     title: {
       flexGrow: 1
     },
+    Link: {
+        textDecoration: 'none',
+    },
     NavLink_selected: {
         '& .MuiButton-text': {
             background: 'none',
@@ -45,21 +48,21 @@ class Header extends PureComponent {
                             Loft Taxi
                         </Typography>
                         
-                        <NavLink to="/map" activeClassName={classes.NavLink_selected} data-testid="MapLink">
+                        <NavLink to="/map" className={classes.Link} activeClassName={classes.NavLink_selected} data-testid="MapLink">
                             <Button color="default">
                                 Карта
                             </Button>
                         </NavLink>
 
-                        <NavLink to="/profile" activeClassName={classes.NavLink_selected} data-testid="ProfileLink">
+                        <NavLink to="/profile" className={classes.Link} activeClassName={classes.NavLink_selected} data-testid="ProfileLink">
                             <Button color="default">Профиль</Button>
                         </NavLink>
                         
                         {isAuthorized || window.localStorage.getItem('isAuthorized')
-                            ? (<NavLink to="/logout" onClick={this.handleClick} data-testid="LogoutLink">
+                            ? (<NavLink to="/logout" className={classes.Link} onClick={this.handleClick} data-testid="LogoutLink">
                                 <Button color="default">Выйти</Button>
                             </NavLink>)
-                            : (<NavLink to="/login" activeClassName={classes.NavLink_selected} data-testid="LoginLink">
+                            : (<NavLink to="/login" className={classes.Link} activeClassName={classes.NavLink_selected} data-testid="LoginLink">
                                 <Button color="default">Войти</Button>
                             </NavLink>)
                         }
