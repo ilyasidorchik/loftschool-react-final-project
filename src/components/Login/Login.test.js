@@ -68,7 +68,7 @@ describe('Login Component', () => {
         expect(wrapper.getByTestId('Login')).toBeTruthy();
     });
 
-    it("provides sign in if user fills in the form incorrectly", () => {
+    it("provides sign in if user fills in the form gicorrectly", () => {
         const wrapper = render(
             <BrowserRouter>
                 <LoginStyled isAuthorized={false} fetchAuthRequest={jest.fn()} />
