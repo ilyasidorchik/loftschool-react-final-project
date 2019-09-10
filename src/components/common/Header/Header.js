@@ -11,10 +11,18 @@ import { getIsAuthorized, fetchLogoutRequest } from '../../../modules/Auth';
 
 const styles = (theme) => ({
     root: {
-      flexGrow: 1,
+      flexGrow: 1
     },
     title: {
-      flexGrow: 1,
+      flexGrow: 1
+    },
+    NavLink_selected: {
+        '& .MuiButton-text': {
+            background: 'none',
+            color: '#f48fb1',
+
+            cursor: 'default'
+        },
     },
 });
 
@@ -37,13 +45,13 @@ class Header extends PureComponent {
                             Loft Taxi
                         </Typography>
                         
-                        <NavLink to="/map" data-testid="MapLink" component={Map}>
+                        <NavLink to="/map" activeClassName={classes.NavLink_selected} data-testid="MapLink">
                             <Button color="default">
                                 Карта
                             </Button>
                         </NavLink>
 
-                        <NavLink to="/profile" data-testid="ProfileLink" component={Map}>
+                        <NavLink to="/profile" activeClassName={classes.NavLink_selected} data-testid="ProfileLink">
                             <Button color="default">Профиль</Button>
                         </NavLink>
                         
@@ -51,7 +59,7 @@ class Header extends PureComponent {
                             ? (<NavLink to="/logout" onClick={this.handleClick} data-testid="LogoutLink">
                                 <Button color="default">Выйти</Button>
                             </NavLink>)
-                            : (<NavLink to="/login" component={Map} data-testid="LoginLink">
+                            : (<NavLink to="/login" activeClassName={classes.NavLink_selected} data-testid="LoginLink">
                                 <Button color="default">Войти</Button>
                             </NavLink>)
                         }
