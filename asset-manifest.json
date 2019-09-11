@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/loftschool-react-final-project/static/css/main.63a4ef81.chunk.css",
+    "main.js": "/loftschool-react-final-project/static/js/main.c2038d05.chunk.js",
+    "main.js.map": "/loftschool-react-final-project/static/js/main.c2038d05.chunk.js.map",
+    "runtime~main.js": "/loftschool-react-final-project/static/js/runtime~main.a20ee360.js",
+    "runtime~main.js.map": "/loftschool-react-final-project/static/js/runtime~main.a20ee360.js.map",
+    "static/js/2.154bc12d.chunk.js": "/loftschool-react-final-project/static/js/2.154bc12d.chunk.js",
+    "static/js/2.154bc12d.chunk.js.map": "/loftschool-react-final-project/static/js/2.154bc12d.chunk.js.map",
+    "index.html": "/loftschool-react-final-project/index.html",
+    "precache-manifest.4872b3031b6123d12765fa9b5f406b4c.js": "/loftschool-react-final-project/precache-manifest.4872b3031b6123d12765fa9b5f406b4c.js",
+    "service-worker.js": "/loftschool-react-final-project/service-worker.js",
+    "static/css/main.63a4ef81.chunk.css.map": "/loftschool-react-final-project/static/css/main.63a4ef81.chunk.css.map"
+  }
+}
