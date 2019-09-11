@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/loftschool-react-final-project/precache-manifest.59c013fd4aff2552b7e484328ba326c0.js"
+  "/loftschool-react-final-project/precache-manifest.7efbcd4d516b501d7adb1938436e0b17.js"
 );
 
 self.addEventListener('message', (event) => {
