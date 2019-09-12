@@ -115,7 +115,7 @@ class Profile extends Component {
                     Платежные данные обновлены. Теперь вы можете заказывать такси.
                 </Typography>
                                 
-                <Link to='/map' className={classes.Link}>
+                <Link to='/map' className={classes.Link} data-testid="SuccessAlert">
                     <Button
                         className={classes.Card__Button}
                         variant="outlined"
@@ -170,6 +170,7 @@ class Profile extends Component {
                     }) => (
                             <Form
                                 className="Form"
+                                data-testid="Form"
                             >
                                 <Grid
                                     container
@@ -228,6 +229,7 @@ class Profile extends Component {
                                                 variant="contained"
                                                 color="primary"
                                                 onClick={submitForm}
+                                                data-testid="SaveButton"
                                             >
                                                 Сохранить
                                             </Button>
@@ -246,7 +248,7 @@ class Profile extends Component {
         const { isCardAdded } = this.state; 
 
         return (
-            <div className="Profile">
+            <div className="Profile" data-testid="Profile">
                 <Grid
                     container
                     direction="column"
@@ -268,6 +270,8 @@ class Profile extends Component {
     }
 };
 
+export const ProfileStyled = withStyles(styles)(Profile);
+
 const mapStateToProps = (state) => ({
     cardName: getCardName(state),
     cardNumber: getCardNumber(state),
@@ -280,4 +284,4 @@ const mapDispatchToProps = { fetchProfileRequest };
 export default connect(
     mapStateToProps,
     mapDispatchToProps
-)(withStyles(styles)(Profile));
+)(ProfileStyled);
