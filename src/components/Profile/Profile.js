@@ -57,7 +57,7 @@ const styles = theme => ({
 const BasicFormSchema = Yup.object().shape({
     cardName: Yup.string()
         .required("Необходимо заполнить поле")
-        .matches(/^[A-Za-z]+\s+[A-Za-z]+$/, "Имя владельца должен быть полным и на латинице"),
+        .matches(/^[A-Za-z]+\s+[A-Za-z]+$/, "Имя владельца должно быть полным и на латинице"),
     cardNumber: Yup.string()
         .required("Необходимо заполнить поле")
         .matches(/^[0-9]+$/, "Номер карты должен содержать только цифры")
