@@ -22,12 +22,9 @@ describe("actions", () => {
 
 	it("should create an action to fetch auth success", () => {
 		const expectedAction = {
-			type: constants.FETCH_AUTH_SUCCESS,
-			payload: {
-				success: true
-			}
+			type: constants.FETCH_AUTH_SUCCESS
 		};
-		expect(fetchAuthSuccess({ success: true })).toEqual(expectedAction);
+		expect(fetchAuthSuccess()).toEqual(expectedAction);
 	});
 
 	it("should create an action to fetch auth failure", () => {

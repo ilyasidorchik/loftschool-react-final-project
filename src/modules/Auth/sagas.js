@@ -14,7 +14,7 @@ function* fetchAuthFlow(action) {
         const result = yield call(authUser, username, password);
         if (result.success) {
             window.localStorage.setItem('authData', JSON.stringify({ username, password }));
-            yield put(fetchAuthSuccess(result));
+            yield put(fetchAuthSuccess());
         }
         else {
             throw new Error(result.error);
