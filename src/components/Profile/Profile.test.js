@@ -1,13 +1,19 @@
 import React from 'react';
-import { render, fireEvent } from '@testing-library/react';
-import { shallow } from 'enzyme';
+import { mount } from 'enzyme';
+import { createShallow } from '@material-ui/core/test-utils';
 
 import { ProfileStyled } from './Profile';
 
 describe("Profile Component", () => {
-    it("renders without crashing", () => {
-        const wrapper = render(<ProfileStyled />);
+    let shallow;
 
-        expect(wrapper.getByTestId('Profile')).toBeTruthy();
+    beforeEach(() => {
+        shallow = createShallow({ dive: true });
+    });
+
+    it("renders without crashing", () => {
+        const wrapper = shallow(<ProfileStyled />);
+
+        expect(wrapper.find('.Profile')).toBeTruthy();
     });
 });
