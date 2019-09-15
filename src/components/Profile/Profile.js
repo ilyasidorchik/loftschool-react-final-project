@@ -225,11 +225,11 @@ class Profile extends Component {
                                         </Grid>
                                         <Grid item xs={12} sm={6}>
                                             <Button
+                                                className="SaveButton"
                                                 type="submit"
                                                 variant="contained"
                                                 color="primary"
                                                 onClick={submitForm}
-                                                data-testid="SaveButton"
                                             >
                                                 Сохранить
                                             </Button>
