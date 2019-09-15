@@ -45,13 +45,9 @@ describe("sagas", () => {
 
 	describe("fetchLogoutFlow Saga", () => {
 		it("dispatches action FETCH_LOGOUT_REQUEST", () => {
-			const iterator = cloneableGenerator(fetchLogoutFlow)(
-				fetchLogoutRequest()
-			);
+			const iterator = fetchLogoutFlow();
 
-			const clone = iterator.clone();
-
-			expect(clone.next().value).toEqual(call(removeAuthDataInLocalStorage));
+			expect(iterator.next().value).toEqual(call(removeAuthDataInLocalStorage));
 		});
 	});
 });
