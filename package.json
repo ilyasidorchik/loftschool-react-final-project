@@ -48,6 +48,7 @@
     ]
   },
   "devDependencies": {
+    "@redux-saga/testing-utils": "^1.0.5",
     "@testing-library/react": "^9.1.4",
     "enzyme": "^3.10.0",
     "enzyme-adapter-react-16": "^1.14.0"
