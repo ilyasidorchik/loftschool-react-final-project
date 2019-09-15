@@ -6,7 +6,7 @@ import {
 	fetchAuthFailure,
 	fetchLogoutRequest
 } from "./duck";
-import { authUser } from "./api";
+import { authUser, removeAuthDataInLocalStorage } from "./api";
 
 function* fetchAuthWatcher() {
 	yield takeLatest(fetchAuthRequest, fetchAuthFlow);
@@ -32,9 +32,15 @@ export function* fetchAuthFlow(action) {
 }
 
 function* fetchLogoutWatcher() {
-	yield takeLatest(fetchLogoutRequest, () => {
-		window.localStorage.removeItem("authData");
-	});
+	yield takeLatest(fetchLogoutRequest, fetchLogoutFlow);
+}
+
+export function* fetchLogoutFlow() {
+	try {
+		yield call(removeAuthDataInLocalStorage);
+	} catch (error) {
+		throw new Error(error);
+	}
 }
 
 export default function*() {
