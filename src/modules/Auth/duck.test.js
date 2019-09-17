@@ -8,7 +8,7 @@ import reducer, {
 
 describe("Auth Duck", () => {
 	describe("actions", () => {
-		it("should create an action to fetch auth request", () => {
+		it("creates an action to fetch auth request", () => {
 			const expectedAction = {
 				type: constants.FETCH_AUTH_REQUEST,
 				payload: {
@@ -21,14 +21,14 @@ describe("Auth Duck", () => {
 			).toEqual(expectedAction);
 		});
 
-		it("should create an action to fetch auth success", () => {
+		it("creates an action to fetch auth success", () => {
 			const expectedAction = {
 				type: constants.FETCH_AUTH_SUCCESS
 			};
 			expect(fetchAuthSuccess()).toEqual(expectedAction);
 		});
 
-		it("should create an action to fetch auth failure", () => {
+		it("creates an action to fetch auth failure", () => {
 			const expectedAction = {
 				type: constants.FETCH_AUTH_FAILURE,
 				payload: {
@@ -41,7 +41,7 @@ describe("Auth Duck", () => {
 			).toEqual(expectedAction);
 		});
 
-		it("should create an action to fetch logout request", () => {
+		it("creates an action to fetch logout request", () => {
 			const expectedAction = {
 				type: constants.FETCH_LOGOUT_REQUEST
 			};
@@ -52,13 +52,13 @@ describe("Auth Duck", () => {
 	describe("reducers", () => {
 		const state0 = reducer(undefined, {});
 
-		it("should return the initial state", () => {
+		it("returns the initial state", () => {
 			expect(state0).toEqual({
 				isAuthorized: false
 			});
 		});
 
-		it("should handle FETCH_AUTH_REQUEST", () => {
+		it("handles FETCH_AUTH_REQUEST", () => {
 			const state1 = reducer(state0, {
 				type: constants.fetchAuthRequest,
 				payload: {
@@ -72,7 +72,7 @@ describe("Auth Duck", () => {
 			});
 		});
 
-		it("should handle FETCH_AUTH_SUCCESS", () => {
+		it("handles FETCH_AUTH_SUCCESS", () => {
 			const state1 = reducer(state0, fetchAuthSuccess());
 
 			expect(state1).toEqual({
@@ -80,7 +80,7 @@ describe("Auth Duck", () => {
 			});
 		});
 
-		it("should handle FETCH_AUTH_FAILURE", () => {
+		it("handles FETCH_AUTH_FAILURE", () => {
 			const state1 = reducer(state0, {
 				type: constants.fetchAuthFailure,
 				payload: {
@@ -93,7 +93,7 @@ describe("Auth Duck", () => {
 			});
 		});
 
-		it("should handle FETCH_LOGOUT_REQUEST", () => {
+		it("handles FETCH_LOGOUT_REQUEST", () => {
 			const state1 = reducer(state0, fetchAuthSuccess());
 
 			const state2 = reducer(state1, fetchLogoutRequest());

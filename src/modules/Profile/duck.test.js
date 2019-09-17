@@ -7,7 +7,7 @@ import {
 
 describe("Profile Duck", () => {
 	describe("actions", () => {
-		it("should create an action to fetch profile request", () => {
+		it("creates an action to fetch profile request", () => {
 			const expectedAction = {
 				type: constants.FETCH_PROFILE_REQUEST,
 				payload: {
@@ -27,7 +27,7 @@ describe("Profile Duck", () => {
 			).toEqual(expectedAction);
 		});
 
-		it("should create an action to fetch profile success", () => {
+		it("creates an action to fetch profile success", () => {
 			const expectedAction = {
 				type: constants.FETCH_PROFILE_SUCCESS,
 				payload: {
@@ -47,7 +47,7 @@ describe("Profile Duck", () => {
 			).toEqual(expectedAction);
 		});
 
-		it("should create an action to fetch profile failure", () => {
+		it("creates an action to fetch profile failure", () => {
 			const expectedAction = {
 				type: constants.FETCH_PROFILE_FAILURE,
 				payload: {
