@@ -1,14 +1,11 @@
 import { createAction, handleActions } from 'redux-actions';
 import { combineReducers } from 'redux';
 
-const STORE_KEY = 'PROFILE';
-export const FETCH_PROFILE_REQUEST = `${STORE_KEY}/FETCH_PROFILE_REQUEST`;
-export const FETCH_PROFILE_SUCCESS = `${STORE_KEY}/FETCH_PROFILE_SUCCESS`;
-export const FETCH_PROFILE_FAILURE = `${STORE_KEY}/FETCH_PROFILE_FAILURE`;
+import * as constants from './constants';
 
-export const fetchProfileRequest = createAction(FETCH_PROFILE_REQUEST);
-export const fetchProfileSuccess = createAction(FETCH_PROFILE_SUCCESS);
-export const fetchProfileFailure = createAction(FETCH_PROFILE_FAILURE);
+export const fetchProfileRequest = createAction(constants.FETCH_PROFILE_REQUEST);
+export const fetchProfileSuccess = createAction(constants.FETCH_PROFILE_SUCCESS);
+export const fetchProfileFailure = createAction(constants.FETCH_PROFILE_FAILURE);
 
 const cardName = handleActions(
     {
