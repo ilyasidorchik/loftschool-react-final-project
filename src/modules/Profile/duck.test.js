@@ -1,5 +1,5 @@
 import * as constants from "./constants";
-import {
+import reducer, {
 	fetchProfileRequest,
 	fetchProfileSuccess,
 	fetchProfileFailure
@@ -59,6 +59,76 @@ describe("Profile Duck", () => {
 					error: "Сообщение об ошибке"
 				})
 			).toEqual(expectedAction);
+		});
+	});
+
+	describe("reducers", () => {
+		const state0 = reducer(undefined, {});
+
+		it("returns the initial state", () => {
+			expect(state0).toEqual({
+				cardName: "",
+				cardNumber: "",
+				expDate: "",
+				CVV: ""
+			});
+		});
+
+		it("handles FETCH_PROFILE_REQUEST", () => {
+			const state1 = reducer(state0, {
+				type: constants.fetchProfileRequest,
+				payload: {
+					cardName: "Ivan Ivanov",
+					cardNumber: "1234123412341234",
+					expDate: "01.01.2025",
+					CVV: "123"
+				}
+			});
+
+			expect(state1).toEqual({
+				cardName: "",
+				cardNumber: "",
+				expDate: "",
+				CVV: ""
+			});
+		});
+
+		it("handles FETCH_PROFILE_SUCCESS", () => {
+			const state1 = reducer(state0, {
+				type: constants.fetchProfileSuccess,
+				payload: {
+					cardName: "Ivan Ivanov",
+					cardNumber: "1234123412341234",
+					expDate: "01.01.2025",
+					CVV: "123"
+				}
+			});
+
+			expect(state1).toEqual({
+				cardName: "Ivan Ivanov",
+				cardNumber: "1234123412341234",
+				expDate: "01.01.2025",
+				CVV: "123"
+			});
+		});
+
+		it("handles FETCH_PROFILE_FAILURE", () => {
+			const state1 = reducer(state0, {
+				type: constants.fetchProfileFailure,
+				payload: {
+					cardName: "Сообщение об ошибке",
+					cardNumber: "Сообщение об ошибке",
+					expDate: "Сообщение об ошибке",
+					CVV: "Сообщение об ошибке"
+				}
+			});
+
+			expect(state1).toEqual({
+				cardName: "Сообщение об ошибке",
+				cardNumber: "Сообщение об ошибке",
+				expDate: "Сообщение об ошибке",
+				CVV: "Сообщение об ошибке"
+			});
 		});
 	});
 });
